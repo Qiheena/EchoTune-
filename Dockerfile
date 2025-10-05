@@ -15,8 +15,9 @@ RUN apk add --no-cache \
 # Copy dependency files
 COPY package*.json ./
 
-# Install dependencies with better caching
-RUN npm ci --omit=dev --ignore-scripts && \
+# Install dependencies (safe way)
+# Using npm install instead of npm ci to avoid lockfile mismatch errors
+RUN npm install --omit=dev && \
     npm cache clean --force
 
 # Bundle app source
