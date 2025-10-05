@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: qiheena-music-bot
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: free
+    region: oregon
+    envVars:
+      - key: DISCORD_BOT_TOKEN
+        sync: false
+      - key: DISCORD_CLIENT_ID
+        sync: false
+      - key: OWNER_ID
+        sync: false
+      - key: NODE_ENV
+        value: production
+      - key: USE_API
+        value: true
+      - key: PORT
+        value: 5000
+      - key: DEBUG_ENABLED
+        value: false
+      - key: DEBUG_COMMAND_THROTTLING
+        value: false
+      - key: LAVALINK_URL
+        sync: false
+      - key: LAVALINK_PASSWORD
+        sync: false
+    healthCheckPath: /
+    autoDeploy: true

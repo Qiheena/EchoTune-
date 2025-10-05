@@ -1,0 +1,107 @@
+{
+  "name": "QIHeena-music-bot",
+  "description": "A free, open-source JavaScript music bot created with discord.js and discord-player",
+  "version": "1.6.0",
+  "main": "src/index.js",
+  "scripts": {
+    "prestart": "node -e \"const fs=require('fs');const path='./tmp/audio';if(fs.existsSync(path)){fs.rmSync(path,{recursive:true,force:true});console.log('Cleaned temp audio directory');}\"",
+    "start": "node .",
+    "dev": "nodemon --trace-warnings .",
+    "test": "node . mode=test",
+    "commit": "cz",
+    "docker:build": "docker build --tag QIHeena-music-bot .",
+    "docker:shell": "docker run -it --rm QIHeena-music-bot sh",
+    "docker:start": "docker run -it -p 5000:5000 --env-file ./.env -d --name QIHeena-music-bot QIHeena-music-bot",
+    "docker:restart": "docker restart QIHeena-music-bot",
+    "docker:stop": "docker stop QIHeena-music-bot",
+    "docker:kill": "docker rm -f QIHeena-music-bot",
+    "docker:purge": "docker rm -fv QIHeena-music-bot",
+    "docker:logs": "docker logs QIHeena-music-bot -f",
+    "docker:image": "docker image tag QIHeena-music-bot QIHeena/QIHeena-music-bot",
+    "docker:push": "docker push QIHeena/QIHeena-music-bot",
+    "docker:update": "git pull && npm install && npm run docker:stop && npm run docker:kill && npm run docker:build && npm run docker:start",
+    "docker:dev:build": "docker build --tag QIHeena-music-bot-dev -f ./.devcontainer/.Dockerfile .",
+    "docker:dev:start": "docker run -it --rm -v $(pwd):/app -v /app/node_modules -p 5000:5000 -p 9229:9229 -w /app QIHeena-music-bot-dev",
+    "pm2:start": "pm2 start --name=QIHeena-music-bot npm -- run start",
+    "pm2:stop": "pm2 stop QIHeena-music-bot",
+    "pm2:purge": "pm2 stop QIHeena-music-bot && pm2 delete QIHeena-music-bot && pm2 reset QIHeena-music-bot",
+    "pm2:logs": "pm2 logs --lines 300 QIHeena-music-bot",
+    "pm2:logsError": "pm2 logs --err --lines 300 QIHeena-music-bot",
+    "lint": "eslint src",
+    "linter": "eslint src --fix",
+    "writeLinter": "eslint src --output-file linter-output.txt"
+  },
+  "dependencies": {
+    "@discord-player/extractor": "^7.1.0",
+    "@discordjs/rest": "^2.4.0",
+    "@distube/ytdl-core": "^4.16.12",
+    "@QIHeena/logger": "file:./vendor/@QIHeena/logger",
+    "chalk": "^4.1.2",
+    "common-tags": "^1.8.2",
+    "discord-player": "^7.1.0",
+    "discord.js": "^14.22.1",
+    "dotenv": "^16.4.7",
+    "express": "^5.1.0",
+    "fs-extra": "^11.3.2",
+    "kazagumo": "^3.3.0",
+    "lokijs": "^1.5.12",
+    "mediaplex": "^1.0.0",
+    "p-queue": "^6.6.2",
+    "play-dl": "^1.9.7",
+    "shoukaku": "^4.1.1",
+    "youtube-sr": "^4.3.12",
+    "yt-dlp-wrap": "^2.3.12"
+  },
+  "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^13.0.0",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^11.0.1",
+    "@semantic-release/npm": "^12.0.1",
+    "@semantic-release/release-notes-generator": "^14.0.1",
+    "commitizen": "^4.3.1",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^8.56.0",
+    "eslint-plugin-sonarjs": "^3.0.1",
+    "nodemon": "^3.1.7",
+    "semantic-release": "^24.2.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/QIHeena/QIHeena-music-bot.git"
+  },
+  "keywords": [
+    "nodejs",
+    "bot-template",
+    "template",
+    "boilerplate",
+    "discord-api",
+    "typings",
+    "discord",
+    "discordjs",
+    "v14",
+    "discord-bot",
+    "music-bot",
+    "music",
+    "prefix-commands",
+    "documented"
+  ],
+  "author": "QIHeena",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/QIHeena/QIHeena-music-bot/issues"
+  },
+  "homepage": "https://github.com/QIHeena/QIHeena-music-bot#readme",
+  "optionalDependencies": {
+    "fsevents": "^2.3.3"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "engineStrict": true,
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}

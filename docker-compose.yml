@@ -1,0 +1,11 @@
+services:
+  client:
+    build: .
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./config.js:/app/config.js
+      - ./QIHeena-music-bot.db:/app/QIHeena-music-bot.db
